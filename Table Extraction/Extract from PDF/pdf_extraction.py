@@ -20,5 +20,5 @@ tables.export('./table_data.csv', f='csv', compress=True)      #this exports our
                                                                #in this case, since our PDF file only has 1 table included, the .export() function will take that one table, export it as a csv file called 'table_data.csv' and zip it. If there were multiple tables in our 
                                                                #PDF file, it would automatically name the files such as 'table_data-1.csv, table_data-2.csv' etc and place them all in the zip file.
 
-tables[0].to_csv('./table_data.csv')                           #alternatively, if we only wanted to work with a single table at a time, we can just use this method.
+#tables[0].to_csv('./table_data.csv')                           #alternatively, if we only wanted to work with a single table at a time, we can just use this method.
 
