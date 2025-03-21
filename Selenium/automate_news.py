@@ -36,11 +36,13 @@ def get_driver():
 def main():
   driver = get_driver()
 
+  news_articles_xpath = '//article[contains(@class, "article") and contains(@class, "story-")]'
+
   WebDriverWait(driver, 20).until(
-    EC.presence_of_all_elements_located((By.XPATH, '//article[contains(@class, "article") and contains(@class, "story-")]'))
+    EC.presence_of_all_elements_located((By.XPATH, news_articles_xpath))
   )
 
-  links = driver.find_elements(By.XPATH, value='//article[contains(@class, "article") and contains(@class, "story-")]//h3[contains(@class, "title")]/a')    #links is now a list of WebDriverElements - in this case, these elements are each of the news stories.
+  links = driver.find_elements(By.XPATH, value=f'{news_articles_xpath}//h3[contains(@class, "title")]/a')    #links is now a list of WebDriverElements - in this case, these elements are each of the news stories.
   
   for i, link in enumerate(links):
     title = link.text
