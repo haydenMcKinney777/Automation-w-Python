@@ -43,13 +43,10 @@ def main():
 
   links = driver.find_elements(By.XPATH, value='//article[contains(@class, "article") and contains(@class, "story-")]//h3[contains(@class, "title")]/a')
   
-  for i, link in enumerate(links, start=1):
+  for i, link in enumerate(links):
     title = link.text
-    info_div = link.find_element(By.XPATH, './ancestor::div[contains(@class, "info")]')
-    #read_time = info_div.find_element(By.XPATH, value='.//span[contains(@class, "read-time")]').text
-    print(f"\n\nNEWS STORY {i}:\nTitle: {title}\n")
-          #Read Time: {read_time}")
-
-
+    read_time_element = link.find_elements(By.XPATH, value='./ancestor::div[contains(@class, "info")]//span[contains(@class, "read-time")]')
+    read_time = read_time_element[0].text if read_time_element else "N/A"
+    print(f"\n\nNEWS STORY {i+1}:\nTitle: '{title}'\nEstimated Read Time: {read_time}")
 
 main()
