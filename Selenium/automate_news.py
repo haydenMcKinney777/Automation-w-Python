@@ -37,11 +37,19 @@ def get_driver():
 def main():
   driver = get_driver()
 
-  links = driver.find_elements(By.XPATH, value='//article[contains(@class, "article") and contains(@class, "story-")]//h3/a')
+  WebDriverWait(driver, 10).until(
+    EC.presence_of_all_elements_located((By.XPATH, '//article[contains(@class, "article") and contains(@class, "story-")]'))
+  )
+
+  links = driver.find_elements(By.XPATH, value='//article[contains(@class, "article") and contains(@class, "story-")]//h3[contains(@class, "title")]/a')
   
-  for link in links:
+  for i, link in enumerate(links, start=1):
     title = link.text
-    read_time = link.find_element(By.XPATH, value='./div/div/span[2]')
+    info_div = link.find_element(By.XPATH, './ancestor::div[contains(@class, "info")]')
+    #read_time = info_div.find_element(By.XPATH, value='.//span[contains(@class, "read-time")]').text
+    print(f"\n\nNEWS STORY {i}:\nTitle: {title}\n")
+          #Read Time: {read_time}")
+
 
 
 main()
