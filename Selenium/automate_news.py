@@ -42,14 +42,15 @@ def main():
     EC.presence_of_all_elements_located((By.XPATH, news_articles_xpath))
   )
 
-  links = driver.find_elements(By.XPATH, value=f'{news_articles_xpath}//h3[contains(@class, "title")]/a')    #links is now a list of WebDriverElements - in this case, these elements are each of the news stories, specifically their titles.
-  
-  for i, link in enumerate(links, start=1):
+  stories = driver.find_elements(By.XPATH, value=f'{news_articles_xpath}//h3[contains(@class, "title")]/a')    #stories is now a list of WebDriverElements - in this case, these elements are each of the news stories.
+
+  for i, story in enumerate(stories, start=1):
     try:
-      title = link.text
-      read_time_element = link.find_elements(By.XPATH, value='./ancestor::div[contains(@class, "info")]//span[contains(@class, "read-time")]')                #./ancestor:: is used to traverse up the DOM so that we can move further down it into the span element which contains the estimated read time text. '//' searches not just the child element, but every element under it.
-      read_time = read_time_element[0].text if read_time_element else "N/A"                                                                                   #not all news articles have an estimated read time, which is why we use 'find_elements' (plural) since this will return a list regardless of if the read time is found or not. (and because we are iterating over a single link each time, the list will only ever have 1 element in it, either [] (if reading time not found) or [x] where x is the estimated reading time in the article)
-      print(f"\n\nNEWS STORY {i}:\nTitle: '{title}'\nEstimated Read Time: {read_time}")
+      title = story.text
+      hyperlink = story.get_attribute('href')
+      read_time_element = story.find_elements(By.XPATH, value='./ancestor::div[contains(@class, "info")]//span[contains(@class, "read-time")]')                #./ancestor:: is used to traverse up the DOM so that we can move further down it into the span element which contains the estimated read time text. '//' searches not just the child element, but every element under it.
+      read_time = read_time_element[0].text if read_time_element else "N/A"                                                                                   #not all news articles have an estimated read time, which is why we use 'find_elements' (plural) since this will return a list regardless of if the read time is found or not. (and because we are iterating over a single story each time, the list will only ever have 1 element in it, either [] (if reading time not found) or [x] where x is the estimated reading time in the article)
+      print(f"\n\nNEWS STORY {i}:\nTitle: '{title}'\nEstimated Read Time: {read_time}\nLink: {hyperlink}")
     except Exception as e:
       print(f"Exception with news story {i}: {e}")
 
