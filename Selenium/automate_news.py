@@ -36,13 +36,13 @@ def get_driver():
 def main():
   driver = get_driver()
 
-  news_articles_xpath = '//article[contains(@class, "article") and contains(@class, "story-")]'
+  news_articles_xpath = '//article[contains(@class, "article") and contains(@class, "story-")]'   #news_articles_xpath holds the xpath to each news article on the website.
 
   WebDriverWait(driver, 20).until(
     EC.presence_of_all_elements_located((By.XPATH, news_articles_xpath))
   )
 
-  links = driver.find_elements(By.XPATH, value=f'{news_articles_xpath}//h3[contains(@class, "title")]/a')    #links is now a list of WebDriverElements - in this case, these elements are each of the news stories.
+  links = driver.find_elements(By.XPATH, value=f'{news_articles_xpath}//h3[contains(@class, "title")]/a')    #links is now a list of WebDriverElements - in this case, these elements are each of the news stories, specifically their titles.
   
   for i, link in enumerate(links, start=1):
     try:
@@ -51,7 +51,7 @@ def main():
       read_time = read_time_element[0].text if read_time_element else "N/A"                                                                                   #not all news articles have an estimated read time, which is why we use 'find_elements' (plural) since this will return a list regardless of if the read time is found or not. (and because we are iterating over a single link each time, the list will only ever have 1 element in it, either [] (if reading time not found) or [x] where x is the estimated reading time in the article)
       print(f"\n\nNEWS STORY {i}:\nTitle: '{title}'\nEstimated Read Time: {read_time}")
     except Exception as e:
-      print(f"Exception: {e}")
+      print(f"Exception with news story {i}: {e}")
 
 
 main()
