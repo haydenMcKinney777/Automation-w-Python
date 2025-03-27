@@ -59,10 +59,12 @@ def main():
       hyperlinks.append(hyperlink)
 
       read_times_scraped = story.find_elements(By.XPATH, value='./ancestor::div[contains(@class, "info")]//span[contains(@class, "read-time")]')                #./ancestor:: is used to traverse up the DOM so that we can move further down it into the span element which contains the estimated read time text. '//' searches not just the child element, but every element under it.
-      read_times.append(read_times_scraped[0].text if read_times_scraped else "N/A")                                                                                #see "inline conditional statements"/"ternary operators" for why this is allowed.                  
-                                                                                                                                                            #not all news articles have an estimated read time, which is why we use 'find_elements' (plural) since this will return a list regardless of if the read time is found or not. (and because we are iterating over a single story each time, the list will only ever have 1 element in it, either [] (if reading time not found) or [x] where x is the estimated reading time in the article)
+      read_times.append(read_times_scraped[0].text if read_times_scraped else "N/A")                                                                             #see "inline conditional statements"/"ternary operators" for why this is allowed.                  
+                                                                                                                                                                 #not all news articles have an estimated read time, which is why we use 'find_elements' (plural) since this will return a list regardless of if the read time is found or not. (and because we are iterating over a single story each time, the list will only ever have 1 element in it, either [] (if reading time not found) or [x] where x is the estimated reading time in the article)
     except Exception as e:
       print(f"Exception with news story {i}: {e}")
+  
+  driver.quit()
 
 
 main()
