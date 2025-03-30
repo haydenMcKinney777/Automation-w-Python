@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys             
 from selenium.webdriver.support.ui import WebDriverWait     #this replaces time.sleep  -  using webdriverwait is more time efficient
 from selenium.webdriver.support import expected_conditions as EC
+import pandas as pd
 
 """
 below we are setting options to make browsing easier. 
@@ -64,6 +65,11 @@ def main():
     except Exception as e:
       print(f"Exception with news story {i}: {e}")
   
+  for title, link, read_time in zip(titles, hyperlinks, read_times):
+    print(f"\nTitle: {title}\nRead Time: {read_time}\nLink: {link}\n")
+
+  
+
   driver.quit()
 
 
