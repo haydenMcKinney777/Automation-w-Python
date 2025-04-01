@@ -65,10 +65,13 @@ def main():
     except Exception as e:
       print(f"Exception with news story {i}: {e}")
   
-  for title, link, read_time in zip(titles, hyperlinks, read_times):
-    print(f"\nTitle: {title}\nRead Time: {read_time}\nLink: {link}\n")
+  # for title, link, read_time in zip(titles, hyperlinks, read_times):
+  #   print(f"\nTitle: {title}\nRead Time: {read_time}\nLink: {link}\n")
 
-  
+  #export our news stories as a csv file using the lists we created earlier
+  stories_dict = {'title':titles, 'read-time':read_times, 'link':hyperlinks}
+  df_news_articles = pd.DataFrame(stories_dict)
+  df_news_articles.to_csv('news_articles.csv')
 
   driver.quit()
 
