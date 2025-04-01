@@ -81,7 +81,8 @@ def main():
   #export our news stories as a csv file using the lists we created earlier
   stories_dict = {'title':titles, 'read-time':read_times, 'link':hyperlinks}
   df_news_articles = pd.DataFrame(stories_dict)
-  df_news_articles.to_csv(f'news - {date}.csv')
+  csv_filename = f'news - {date}.csv'
+  df_news_articles.to_csv(csv_filename)   #export dataframe into a csv file called whatever is stored in 'filename'
 
   driver.quit()
 
