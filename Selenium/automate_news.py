@@ -10,8 +10,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait     #this replaces time.sleep  -  using webdriverwait is more time efficient
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
+import os
+import sys
+from datetime import datetime
 
+application_path = os.path.dirname(sys.executable)
 
+now = datetime.now()
+date = now.strftime("%a %b %d %Y")
 
 """
 below we are setting options to make browsing easier. 
@@ -75,7 +81,7 @@ def main():
   #export our news stories as a csv file using the lists we created earlier
   stories_dict = {'title':titles, 'read-time':read_times, 'link':hyperlinks}
   df_news_articles = pd.DataFrame(stories_dict)
-  df_news_articles.to_csv('news_articles.csv')
+  df_news_articles.to_csv(f'news - {date}.csv')
 
   driver.quit()
 
