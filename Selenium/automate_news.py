@@ -11,6 +11,8 @@ from selenium.webdriver.support.ui import WebDriverWait     #this replaces time.
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 
+
+
 """
 below we are setting options to make browsing easier. 
 disable infobars means ignoring things such as nav bars on an html file
@@ -18,6 +20,7 @@ start maximized means that the page we are scraping gets maximized, since someti
 disable dev shm is related to linux
 no sandbox gives our script greater privileges on pages
 the experimental options we added is to help our scripts not be detected by web pages
+--headless=new makes it so that our automation happens in the background i.e. we won't see a browser open
 
 analogy: think of the driver as a remote control for a web page, and the python script is the one pushing the controller buttons
 """
@@ -29,6 +32,7 @@ def get_driver():
   options.add_argument("no-sandbox")
   options.add_experimental_option("excludeSwitches", ["enable-automation"])
   options.add_argument("disable-blink-features=AutomationControlled")
+  options.add_argument("--headless=new")      
  
   driver = webdriver.Edge(options=options)                      #the driver is responsible for launching the browser and controlling it, and allows us to use methods like find_elements() etc.
   driver.get("https://www.foxnews.com/")                        #loads the web page to prepare it for scraping
