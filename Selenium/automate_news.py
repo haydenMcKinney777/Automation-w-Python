@@ -1,6 +1,6 @@
 """
-In this file we use selenium to scrape a news web page. 
-Since I us MS Edge as my browser as opposed to chrome, my imports and driver setup will probably look different from most other people.   
+In this file we use selenium to scrape a news web page, and export the news articles into a csv file which
+automatically gets sent to me at a certain time each day.
 """
 
 
@@ -74,9 +74,6 @@ def main():
                                                                                                                                                                  #not all news articles have an estimated read time, which is why we use 'find_elements' (plural) since this will return a list regardless of if the read time is found or not. (and because we are iterating over a single story each time, the list will only ever have 1 element in it, either [] (if reading time not found) or [x] where x is the estimated reading time in the article)
     except Exception as e:
       print(f"Exception with news story {i}: {e}")
-  
-  # for title, link, read_time in zip(titles, hyperlinks, read_times):
-  #   print(f"\nTitle: {title}\nRead Time: {read_time}\nLink: {link}\n")
 
   #export our news stories as a csv file using the lists we created earlier
   stories_dict = {'title':titles, 'read-time':read_times, 'link':hyperlinks}
