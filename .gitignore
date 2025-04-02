@@ -1,1 +1,4 @@
 FreeCodeCamp Python Automation GitHub.txt
+build/
+dist/
+*.spec
