@@ -87,9 +87,7 @@ def main():
                     stories_dict['read-time'][i],
                     stories_dict['link'][i] }
                     for i in range(min(5, len(stories_dict))) 
-                ]
-
-    
+                ]  
 
   #export as csv:
   # csv_filename = f'news - {date}.csv'
