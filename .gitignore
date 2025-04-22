@@ -2,3 +2,4 @@ FreeCodeCamp Python Automation GitHub.txt
 build/
 dist/
 *.spec
+news*.csv

@@ -60,7 +60,7 @@ def main():
   hyperlinks = []
   read_times = []
 
-  #iterate over each story scraped from the webpage, and print to the terminal each story.
+  #iterate over each story scraped from the webpage.
   for i, story in enumerate(stories, start=1):
     try:
       title = story.text
@@ -78,8 +78,22 @@ def main():
   #export our news stories as a csv file using the lists we created earlier
   stories_dict = {'title':titles, 'read-time':read_times, 'link':hyperlinks}
   df_news_articles = pd.DataFrame(stories_dict)
-  csv_filename = f'news - {date}.csv'
-  df_news_articles.to_csv(csv_filename)   #export dataframe into a csv file called whatever is stored in 'filename'
+  
+  #head titles will be a variable that will store the first 5 news titles, and we will use this variable to loop through and automatically send to email.
+  #head titles is a list of dictionaries.
+  #we're only going to email the first 5 news stories which are held in head_titles list, however recall that all news stories have been scrapeed and placed into the stories_dict variable.
+  head_titles = [ 
+                  { stories_dict['title'][i],
+                    stories_dict['read-time'][i],
+                    stories_dict['link'][i] }
+                    for i in range(min(5, len(stories_dict))) 
+                ]
+
+    
+
+  #export as csv:
+  # csv_filename = f'news - {date}.csv'
+  # df_news_articles.to_csv(csv_filename)   #export dataframe into a csv file called whatever is stored in 'filename'
 
   driver.quit()
 
